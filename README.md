@@ -105,7 +105,7 @@ public static void main(String[] args) {
 ```
 加密后访问连接不变，但需要设置Header，在Header里增加
 ```
-Secure-Type = TRUE  //TRUE都是大写
+Secure-Type = TRUE  //TRUE大写
 ```
 
 上述例子中加密字符串结果为
