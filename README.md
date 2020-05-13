@@ -1,4 +1,4 @@
-# totoroAgent Go语言编写的适用于Linux和Windows的多线程agent软件
+# Go语言编写的适用于Linux和Windows的多线程agent软件
 
 ## 项目简介
 使用Go语言开发的多线程agent
@@ -61,3 +61,61 @@ var
 第一行返回命令执行结果，后面返回命令执行的内容 <br>
 
 ### 异步命令
+POST 访问http://{agent地址}:10099/tasks, body内容为 <br>
+
+```
+[{              //task数组，可以同时传多个task任务
+"id":0,
+"taskId":"1111",
+"actionType":"exec",
+"cmdType":"query",
+"cmd":"ls /export",
+"status":0,
+"resultCode":0,
+"resultInfo":"123",
+"url":"http://127.0.0.1"   //完成后回调函数
+}]
+```
+
+### 加密传输
+```
+public static void main(String[] args) {
+    String content = "{\"actionType\" : \"exec\",\"cmd\" : \"ls /export\"}";
+    // 加密的key
+    String KEY = "totoro&&agent%#.*&$agent";
+    byte[] crypted = null;
+    try {
+        byte[] keyBytes = KEY.getBytes();
+        DESedeKeySpec desKeySpec = new DESedeKeySpec(keyBytes);
+        IvParameterSpec ivSpec = new IvParameterSpec(KEY.substring(0, 8).getBytes());
+        SecretKeyFactory factory = SecretKeyFactory.getInstance("DESede");
+        SecretKey secKey = factory.generateSecret(desKeySpec);
+        Cipher cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
+        cipher.init(Cipher.ENCRYPT_MODE, secKey, ivSpec);
+        crypted =  cipher.doFinal(content.getBytes());
+    }  catch (Exception e) {
+        e.printStackTrace();
+    }
+    String encodeContent = new String(Base64.encodeBase64(crypted));
+    System.out.println(encodeContent);
+}
+```
+加密后访问连接不变，但需要设置Header，在Header里增加
+```
+Secure-Type = TRUE  //TRUE都是大写
+```
+
+上述例子中加密字符串结果为
+```
+mt4O2nVGYe5kkIEIg9Ttoygw8VnDyBYFGlG7bY7aVgxCbsu4rK+FYDJeYaCfeos5
+```
+
+调用成功返回结果
+```
+Command exit code: 0
+code
+go
+logs
+var
+
+```

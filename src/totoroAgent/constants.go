@@ -13,7 +13,7 @@ const (
 
 // secure info
 const (
-	AGENT_DES_KEY = "totoro&&agent%#.*&$"
+	AGENT_DES_KEY = "totoro&&agent%#.*&$agent"   //24位
 	SECURE_HEADER = "Secure-Type"
 )
 
