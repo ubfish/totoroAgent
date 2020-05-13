@@ -1,0 +1,6 @@
+{
+  "version":"1.0",
+  "listenPort":"10099",
+  "pidPath":"/export/var",
+  "logPath":"/export/logs/totoroAgent.logs"
+}

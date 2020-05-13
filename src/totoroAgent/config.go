@@ -56,7 +56,7 @@ func InitConfig() (config Config, s string, err error) {
 	}
 
 	// loading default paramter
-	config.LogPath = "/var/Logs/totoroAgent/agent.log"
+	config.LogPath = "/var/Logs/totoroAgent.log"
 	config.ListenPort = ":10099"
 	config.PidPath = "/var/Data/totoroAgent/"
 	config.Version = "1.0"
