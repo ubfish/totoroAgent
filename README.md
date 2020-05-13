@@ -1,13 +1,13 @@
 # Go语言编写的适用于Linux和Windows的多线程agent软件
 
 ## 项目简介
-使用Go语言开发的多线程agent
-1.使用http方式调用
-2.支持加密传输方式
-3.支持调用底层命令与脚本
-4.支持同步与异步调用方式
-5.支持心跳功能
-6.支持windows和linux多操作系统，
+使用Go语言开发的多线程agent软件<br>
+**1.使用http方式调用**<br>
+**2.支持加密传输方式<**br>
+**3.支持调用底层命令与脚本**<br>
+**4.支持同步与异步调用方式**<br>
+**5.支持心跳功能**<br>
+**6.支持windows和linux多操作系统（需分别编译）**<br>
 
 ## 代码架构：
 totoroAgent.go  //入口方法，初始化程序 <br>
@@ -38,6 +38,7 @@ go install totoroAgent totoroAgent.go
 ```
 ./totoroAgent -c config.json
 ```
+config中可配置启动端口，进程地址，日志地址，加密key等等
 
 ## 使用
 启动应用后，访问http://{agent地址}:10099/version，返回版本号即成功 <br>
@@ -78,6 +79,7 @@ POST 访问http://{agent地址}:10099/tasks, body内容为 <br>
 ```
 
 ### 加密传输
+支持des加密方式，java端加密的代码如下
 ```
 public static void main(String[] args) {
     String content = "{\"actionType\" : \"exec\",\"cmd\" : \"ls /export\"}";
